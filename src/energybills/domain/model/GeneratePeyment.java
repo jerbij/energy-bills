@@ -14,5 +14,11 @@ public class GeneratePeyment {
         this.amount = amount;
     }
 
+    public Integer calculateSalary() {
+        Integer countedSalary = 0;
 
+        countedSalary++;
+
+        return countedSalary;
+    }
 }

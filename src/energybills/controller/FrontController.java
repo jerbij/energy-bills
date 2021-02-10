@@ -44,6 +44,8 @@ public class FrontController {
                 System.out.println(e.getMessage());
             } catch (InvocationTargetException e) {
                 System.out.println(e.getMessage());
+            } catch(Throwable e) {
+                System.out.println(e.getMessage());
             }
         }
     }

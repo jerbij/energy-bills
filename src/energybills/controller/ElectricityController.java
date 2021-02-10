@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import energybills.domain.model.Customer;
 import energybills.domain.model.EnergyConsume;
+import energybills.domain.model.Fare;
 import energybills.domain.model.House;
 
 import java.util.List;
@@ -91,7 +92,24 @@ public class ElectricityController {
         else {
 
         }
+    }
 
+    public void assignMonthFare() {
+
+        Scanner in = new Scanner(System.in);
+
+        System.out.println("What month it is?");
+        int month = in.nextInt();
+
+        System.out.println("Price?");
+        int price = in.nextInt();
+
+        Fare f = new Fare(price, month);
+        House h1 = House.getInstance();
+
+        h1.addFare(f);
+
+        System.out.println(String.format("The amount of fares for now is: %s", h1.getFareList().size()));
     }
 
     public void test1() {

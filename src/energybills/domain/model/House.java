@@ -1,6 +1,8 @@
 package energybills.domain.model;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class House { //будинок
 
@@ -8,6 +10,8 @@ public class House { //будинок
     private List<Customer> customerList;
 
     private List<EnergyConsume> energyConsumeList;
+
+    private Set<Fare> fareList;
 
     private int number;
 
@@ -18,6 +22,7 @@ public class House { //будинок
     public House (){
         customerList =  new ArrayList();
         energyConsumeList = new ArrayList();
+        fareList = new HashSet<>();
     }
 
     public List<EnergyConsume> getEnergyConsumeList() {
@@ -25,6 +30,14 @@ public class House { //будинок
     }
     public void addEnergyConsume(EnergyConsume energyConsumeList) {
         this.energyConsumeList.add(energyConsumeList);
+    }
+
+
+    public Set<Fare> getFareList() {
+        return fareList;
+    }
+    public void addFare(Fare myValue) {
+        this.fareList.add(myValue);
     }
 
     public static House getInstance() {
