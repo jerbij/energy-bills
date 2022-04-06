@@ -6,6 +6,8 @@ public class EnergyConsume {   // спожито
 
     private Customer customer; // споживач
 
+    private int monthNumber;
+
     public int getAmount() {
         return amount;
     }
@@ -20,5 +22,13 @@ public class EnergyConsume {   // спожито
 
     public void setConsumer(Customer customer) {
         this.customer = customer;
+    }
+
+    public void setMonthNumber(int month) {
+        this.monthNumber = month;
+    }
+
+    public int getMonthNumber() {
+        return this.monthNumber;
     }
 }

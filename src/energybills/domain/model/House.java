@@ -88,7 +88,7 @@ public class House { //будинок
     }
 
     // this method will be used to generate certain energy consume for some customer
-    public EnergyConsume  generateRandomEnergyConsume(Customer customer) {
+    public EnergyConsume  generateRandomEnergyConsume(Customer customer, int month) {
 
 
         EnergyConsume energyConsume = new EnergyConsume();
@@ -99,32 +99,38 @@ public class House { //будинок
         // how much?
         energyConsume.setAmount(generateRandomAmount());
 
+        energyConsume.setMonthNumber(month);
 
         return energyConsume;
     }
 
     public void generateEnergyConsumes() throws InterruptedException {
 
-        List<Customer> cl = getConsumerList();
+        List<Customer> allCustomers = getConsumerList();
+
+        int month = 1;
 
         while (true) {
             // enternal loop
 
-            for (int i = 0; i < cl.size(); i++) {
+
+            for (int i = 0; i < allCustomers.size(); i++) {
+
                 // go through all consumer in the house
 
                 // get a consumer with "i" index in list
-                Customer cns = cl.get(i);
+                Customer currentCustomer = allCustomers.get(i);
 
                 // generate energyConsume for them
-                EnergyConsume ec = generateRandomEnergyConsume(cns);
+                EnergyConsume generatedConsume = generateRandomEnergyConsume(currentCustomer,month);
 
                 // add this energyConsume into our list, that lives in our house
-                addEnergyConsume(ec);
+                addEnergyConsume(generatedConsume);
 
                 // System.out.println(String.format("Generated for the costumer #%d", i));
             }
 
+            month = month + 1;
             Thread.sleep(15000);
         }
 

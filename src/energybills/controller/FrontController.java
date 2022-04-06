@@ -7,13 +7,13 @@ import java.util.Scanner;
 // vachter
 public class FrontController {
 
-    public void run() {
+    public void run() throws Throwable {
         while(true) {              // вечный цикл, boolean, генерятся с помощью операторов,
             this.parseCommand();
         }
     }
 
-    private void parseCommand() {
+    private void parseCommand() throws Throwable {
 
         System.out.println("Enter a command:");
 
@@ -43,7 +43,8 @@ public class FrontController {
             } catch (IllegalAccessException e) {
                 System.out.println(e.getMessage());
             } catch (InvocationTargetException e) {
-                System.out.println(e.getMessage());
+                throw e.getTargetException();
+                // System.out.println(e.getMessage());
             } catch(Throwable e) {
                 System.out.println(e.getMessage());
             }

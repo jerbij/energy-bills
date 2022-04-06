@@ -1,13 +1,12 @@
 package energybills.controller;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-import energybills.domain.model.Customer;
-import energybills.domain.model.EnergyConsume;
-import energybills.domain.model.Fare;
-import energybills.domain.model.House;
+import energybills.domain.model.*;
 
 import java.util.List;
+import java.util.Set;
 
 
 // Hren dlja command
@@ -28,74 +27,48 @@ public class ElectricityController {
         House h1 = House.getInstance();
 
         // 2. ) Get one particular user from storage
-        Customer c1 = h1.getConsumerByLogin(login);
+        Customer foundCustomer = h1.getConsumerByLogin(login);
 
         List<EnergyConsume> allConsumes = h1.getEnergyConsumeList();
 
         // initialize variable totalAmount that will hold totalAmount of consumed energy
+        int totalAmount = calculateConsumedEnergyByCustomer(foundCustomer, allConsumes);
+
+        System.out.println("The overall consume by this user is: " + totalAmount);
+    }
+
+    private int calculateConsumedEnergyByCustomer(Customer foundCustomer, List<EnergyConsume> allConsumes) {
         int totalAmount = 0;
 
         // loop through allConsumes
 
 
-        if(c1 != null) {
+        if(foundCustomer != null) {
             System.out.println("The customer found!");
 
             for (int i = 0; i < allConsumes.size(); i++) {
 
-                // get current ec
-
                 EnergyConsume ecCur = allConsumes.get(i);
 
-                // returns boolean: ==, !=, <, >, <=, >=, &&, ||
-
-                // or, methods, that returns booleans
-
-            /*
-            String a = "roma";
-            String b = "neroma";
-
-            if(checkString(a)) {
-
-            }
-
-
-            if(a.equals(b)) {
-                System.out.println("The variables is equal");
-            }
-            */
-
-
-                // get its customer
-
-                // compare with found customer (c1)
-
-                //
-
-                totalAmount = (totalAmount + 10);
-
-                if (c1.getLogin().equals(ecCur.getConsumer().getLogin())) {
-                    // 0
-                    // ta = 0 + 10
-                    // ta == 10
-                    // ta = 10 + 30
-                    // ta == 40
-
+                if (foundCustomer.getLogin().equals(ecCur.getConsumer().getLogin())) {
                     // if match, add "amount" of ec to totalAmount
                     totalAmount = totalAmount + ecCur.getAmount();
                 }
             }
 
-            System.out.println("The overall consume by this user is: " + totalAmount);
+
+
+
         }
         // please, add "else" with message that customer wasnt found
         else {
 
         }
+
+        return totalAmount;
     }
 
     public void assignMonthFare() {
-
         Scanner in = new Scanner(System.in);
 
         System.out.println("What month it is?");
@@ -118,15 +91,65 @@ public class ElectricityController {
 
     public void bill() {
 
-        // class vs object ??
-        // i. e., "Roma" vs "human"
+        System.out.println("Enter login:"); //consume
 
-        House  h2 =  House.getInstance();
+        Scanner in = new Scanner(System.in);
+        String login = in.nextLine();
 
-        // to take all "energy consumes" (i. e., electricity, consumed by each customer)
-        List<EnergyConsume> ec = h2.getEnergyConsumeList();
+        // we should get consumer by login
 
-        System.out.println("To bill for all bills (" + ec.size() + ")");
+        // 1. ) Get storage
+        House h1 = House.getInstance();
+
+        // 2. ) Get one particular user from storage
+        Customer foundCustomer = h1.getConsumerByLogin(login);
+
+        List<EnergyConsume> allConsumes = h1.getEnergyConsumeList();
+
+        // initialize variable totalAmount that will hold totalAmount of consumed energy
+        int totalAmount = calculateConsumedEnergyByCustomer(foundCustomer, allConsumes);
+
+        System.out.println("The overall consume by this user is: " + totalAmount);
+
+
+        Set<Fare> fares = h1.getFareList();
+
+        Fare foundFare;
+
+        try {
+            foundFare = getLastElement(fares);
+
+        } catch(Throwable e) {
+            System.out.println("The fares was not set yet");
+            return;
+        }
+
+        int cost = totalAmount * foundFare.getPrice();
+        System.out.println("The cost is " + cost);
+
+
+        // nakrucheno (by user) * fare (kakojto)
+
+        // (nakr jan - 110)
+        // nakr feb - 230
+        // nakr mar - 99
+
+        // (fare jan - 100)
+        // (fare feb = 200)
+        // (fare mar = 300)
+
+        // == cost
+
+        // nakrucheno (by user) * fare
+
+        // nakrucheno (filter by user) : fare
+        //
+        // * fare = cost
+
+
+        // energyconsume
+
+        // System.out.println("To bill for all bills (" + ec.size() + ")");
     }
 
     public void invoice() {
@@ -147,6 +170,17 @@ public class ElectricityController {
     }
 
 
+    public static <T> T getLastElement(final Iterable<T> elements) throws NoSuchElementException {
+        T lastElement = null;
 
+        for (T element : elements) {
+            lastElement = element;
+        }
+
+        if(lastElement == null) {
+            throw new NoSuchElementException("The collection is empty");
+        }
+        return lastElement;
+    }
 
 }

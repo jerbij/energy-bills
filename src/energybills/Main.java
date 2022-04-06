@@ -1,4 +1,5 @@
 package energybills;
+
 import energybills.controller.FrontController;
 import energybills.lifecycle.Bootstrap;
 import energybills.lifecycle.TestClass;
@@ -7,7 +8,7 @@ import java.math.BigInteger;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Throwable {
 
 
 	// write your code here
@@ -26,6 +27,8 @@ public class Main {
 
         // SOLID
         FrontController fc = new FrontController();
+
+        // throw new Exception("my exception");
         fc.run();
     }
 }
