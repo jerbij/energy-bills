@@ -31,7 +31,7 @@ public class ElectricityController {
 
         List<EnergyConsume> allConsumes = h1.getEnergyConsumeList();
 
-        // initialize variable totalAmount that will hold totalAmount of consumed energy
+        // initialize variable totaglAmount that will hold totalAmount of consumed energy
         int totalAmount = calculateConsumedEnergyByCustomer(foundCustomer, allConsumes);
 
         System.out.println("The overall consume by this user is: " + totalAmount);
@@ -41,8 +41,6 @@ public class ElectricityController {
         int totalAmount = 0;
 
         // loop through allConsumes
-
-
         if(foundCustomer != null) {
             System.out.println("The customer found!");
 
@@ -55,10 +53,6 @@ public class ElectricityController {
                     totalAmount = totalAmount + ecCur.getAmount();
                 }
             }
-
-
-
-
         }
         // please, add "else" with message that customer wasnt found
         else {
@@ -111,7 +105,6 @@ public class ElectricityController {
 
         System.out.println("The overall consume by this user is: " + totalAmount);
 
-
         Set<Fare> fares = h1.getFareList();
 
         Fare foundFare;
@@ -126,30 +119,6 @@ public class ElectricityController {
 
         int cost = totalAmount * foundFare.getPrice();
         System.out.println("The cost is " + cost);
-
-
-        // nakrucheno (by user) * fare (kakojto)
-
-        // (nakr jan - 110)
-        // nakr feb - 230
-        // nakr mar - 99
-
-        // (fare jan - 100)
-        // (fare feb = 200)
-        // (fare mar = 300)
-
-        // == cost
-
-        // nakrucheno (by user) * fare
-
-        // nakrucheno (filter by user) : fare
-        //
-        // * fare = cost
-
-
-        // energyconsume
-
-        // System.out.println("To bill for all bills (" + ec.size() + ")");
     }
 
     public void invoice() {

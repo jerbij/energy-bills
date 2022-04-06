@@ -20,10 +20,9 @@ public class FrontController {
         Scanner in = new Scanner(System.in);
         String command = in.nextLine();
 
-        // chuvak v kabinete
         ElectricityController ec = new ElectricityController();
 
-        Method method = null; // тип данных, переменной еще не присвоено значение.
+        Method method = null;
 
         try {
             method = ec.getClass().getMethod(command);
@@ -44,7 +43,6 @@ public class FrontController {
                 System.out.println(e.getMessage());
             } catch (InvocationTargetException e) {
                 throw e.getTargetException();
-                // System.out.println(e.getMessage());
             } catch(Throwable e) {
                 System.out.println(e.getMessage());
             }
